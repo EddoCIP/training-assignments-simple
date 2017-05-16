@@ -17,21 +17,19 @@ public class BoardFactory {
 //                    int dirY = (height + y + dir.getDeltaY()) % height;
 //                    Square neighbour = grid[dirX][dirY];
 //                    square.link(neighbour, dir);
-                	setLink(square, dir, x, y, width, height, grid);
+                	setLink(square, dir, new Coordinate(x, y, width, height), grid);
                 }
             }
         }
 
         return board;
     }
-    private void setLink(Square square, Direction dir, int x, int y, int width, 
-            int height, Square[][] grid) {
-     int dirX = (width + x + dir.getDeltaX()) % width;
-      int dirY = (height + y + dir.getDeltaY()) % height;
+    private void setLink(Square square, Direction dir, Coordinate coordinate, Square[][] grid) {
+     int dirX = (coordinate.width + coordinate.x + dir.getDeltaX()) % coordinate.width;
+      int dirY = (coordinate.height + coordinate.y + dir.getDeltaY()) % coordinate.height;
       Square neighbour = grid[dirX][dirY];
       square.link(neighbour, dir);
   }
-
     // end::createBoard[]
 }
 
@@ -67,4 +65,18 @@ class Direction {
     public int getDeltaX() {
         return 0;
     }
+}
+
+class Coordinate {
+	public int x;
+	public int y;
+	public int width;
+	public int height;
+
+	public Coordinate(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	}
 }
