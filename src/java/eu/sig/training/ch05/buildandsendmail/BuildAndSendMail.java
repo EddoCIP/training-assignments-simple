@@ -5,17 +5,25 @@ import eu.sig.training.ch05.buildandsendmail.BuildAndSendMail.Mail;
 import eu.sig.training.ch05.buildandsendmail.BuildAndSendMail.Message;
 
 public class BuildAndSendMail {
-    public static class Employee {
+    public static class Name {
 		public String firstName;
 		public String lastName;
-		public String division;
 
-		public Employee(String firstName, String lastName, String division) {
+		public Name(String firstName, String lastName) {
 			this.firstName = firstName;
 			this.lastName = lastName;
-			this.division = division;
 		}
 	}
+    
+    public static class Employee {
+    	public Name name;
+    	public String division;
+    	
+    	public Employee(Name name, String division){
+    		this.name = name;
+    		this.division = division;
+    	}
+    }
 
 	public static class Message {
 		public String message1;
@@ -54,7 +62,7 @@ public class BuildAndSendMail {
 	// tag::buildAndSendMail[]
     public void buildAndSendMail(MailMan m, Email email) {
         // Format the email address
-        String mId = email.employee.firstName.charAt(0) + "." + email.employee.lastName.substring(0, 7) + "@"
+        String mId = email.employee.name.firstName.charAt(0) + "." + email.employee.name.lastName.substring(0, 7) + "@"
             + email.employee.division.substring(0, 5) + ".compa.ny";
         // Format the message given the content type and raw message
         MailMessage mMessage = formatMessage(email.mail.font,
