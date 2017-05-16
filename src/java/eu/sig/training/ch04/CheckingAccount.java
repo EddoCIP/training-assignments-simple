@@ -29,8 +29,8 @@ public class CheckingAccount {
         }
     }
 
-    public void addInterest() {
-        Money interest = balance.multiply(INTEREST_PERCENTAGE);
+    public void addInterest(float interestPercentage) {
+        Money interest = balance.multiply(interestPercentage);
         if (interest.greaterThan(0)) {
             balance.add(interest);
         } else {
