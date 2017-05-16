@@ -3,6 +3,8 @@ package eu.sig.training.ch05.boardpanel;
 import java.awt.Graphics;
 import java.util.List;
 
+import eu.sig.training.ch02.Coordinate;
+
 public class BoardPanel {
     @SuppressWarnings("unused")
     // tag::render[]
@@ -51,19 +53,4 @@ public class BoardPanel {
         }
 
     }
-    
-    class Coordinate {
-    	public int x;
-    	public int y;
-    	public int w;
-    	public int h;
-
-    	public Coordinate(int x, int y, int w, int h) {
-    		this.x = x;
-    		this.y = y;
-    		this.w = w;
-    		this.h = h;
-    	}
-    }
-
 }

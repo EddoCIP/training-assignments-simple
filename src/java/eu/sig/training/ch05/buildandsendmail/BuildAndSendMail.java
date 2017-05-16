@@ -1,28 +1,29 @@
 package eu.sig.training.ch05.buildandsendmail;
 
 public class BuildAndSendMail {
-    public static class Mail {
-		public String subject;
-		public MailFont font;
-		public Text text;
+    public static class Employee {
+		public String firstName;
+		public String lastName;
+		public String division;
 
-		public Mail(String subject, MailFont font, Text text) {
-			this.subject = subject;
-			this.font = font;
-			this.text = text;
+		public Employee(String firstName, String lastName, String division) {
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.division = division;
 		}
 	}
 
 	// tag::buildAndSendMail[]
-    public void buildAndSendMail(MailMan m, Employee employee, Mail mail) {
+    public void buildAndSendMail(MailMan m, Employee employee, String subject,
+        MailFont font, String message1, String message2, String message3) {
         // Format the email address
         String mId = employee.firstName.charAt(0) + "." + employee.lastName.substring(0, 7) + "@"
             + employee.division.substring(0, 5) + ".compa.ny";
         // Format the message given the content type and raw message
-        MailMessage mMessage = formatMessage(mail.font,
-            mail.text.message1 + mail.text.message2 + mail.text.message3);
+        MailMessage mMessage = formatMessage(font,
+            message1 + message2 + message3);
         // Send message
-        m.send(mId, mail.subject, mMessage);
+        m.send(mId, subject, mMessage);
     }
     // end::buildAndSendMail[]
 
