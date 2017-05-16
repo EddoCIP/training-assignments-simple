@@ -1,16 +1,28 @@
 package eu.sig.training.ch05.buildandsendmail;
 
 public class BuildAndSendMail {
-    // tag::buildAndSendMail[]
-    public void buildAndSendMail(MailMan m, Recipient recipient, Message message) {
+    public static class Mail {
+		public String subject;
+		public MailFont font;
+		public Text text;
+
+		public Mail(String subject, MailFont font, Text text) {
+			this.subject = subject;
+			this.font = font;
+			this.text = text;
+		}
+	}
+
+	// tag::buildAndSendMail[]
+    public void buildAndSendMail(MailMan m, Employee employee, Mail mail) {
         // Format the email address
-        String mId = recipient.firstName.charAt(0) + "." + recipient.lastName.substring(0, 7) + "@"
-            + recipient.division.substring(0, 5) + ".compa.ny";
+        String mId = employee.firstName.charAt(0) + "." + employee.lastName.substring(0, 7) + "@"
+            + employee.division.substring(0, 5) + ".compa.ny";
         // Format the message given the content type and raw message
-        MailMessage mMessage = formatMessage(message.mailFont,
-            message.message);
+        MailMessage mMessage = formatMessage(mail.font,
+            mail.text.message1 + mail.text.message2 + mail.text.message3);
         // Send message
-        m.send(mId, message.subject, mMessage);
+        m.send(mId, mail.subject, mMessage);
     }
     // end::buildAndSendMail[]
 
@@ -33,58 +45,5 @@ public class BuildAndSendMail {
     private class MailMessage {
 
     }
-    
-    private class Recipient{
-    	private String firstName;
-    	private String lastName;
-    	private String division;
-    	public Recipient(String firstName, String lastName, String division){
-    		this.firstName = firstName;
-    		this.lastName = lastName;
-    		this.division = division;
-    	}
-		public String getFirstName() {
-			return firstName;
-		}
-		public void setFirstName(String firstName) {
-			this.firstName = firstName;
-		}
-		public String getLastName() {
-			return lastName;
-		}
-		public void setLastName(String lastName) {
-			this.lastName = lastName;
-		}
-		public String getDivision() {
-			return division;
-		}
-		public void setDivision(String division) {
-			this.division = division;
-		}
-    }
-    
-    private class Message{
-    	private String message;
-    	private String subject;
-    	private MailFont mailFont;
 
-    	public Message(MailFont mailFont,String subject, String message1, String message2, String message3){
-    		this.message = message1 + message2 + message3;
-    		this.subject = subject;
-    		this.mailFont = mailFont;
-    	}
-		public String getMessage() {
-			return message;
-		}
-
-		public void setMessage(String message) {
-			this.message = message;
-		}
-		public String getSubject() {
-			return subject;
-		}
-		public void setSubject(String subject) {
-			this.subject = subject;
-		}
-    }
 }
