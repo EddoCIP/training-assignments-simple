@@ -24,16 +24,16 @@ public class BoardPanel {
      *            The height of this square (in pixels).
      */
     private void render(Square square, Graphics g, Coordinate coordinate) {
-        square.getSprite().draw(g, coordinate.x, coordinate.y, coordinate.w, coordinate.h);
+        square.getSprite().draw(g, coordinate);
         for (Unit unit : square.getOccupants()) {
-            unit.getSprite().draw(g, coordinate.x, coordinate.y, coordinate.w, coordinate.h);
+            unit.getSprite().draw(g, coordinate);
         }
     }
     // end::render[]
 
     private class Sprite {
         @SuppressWarnings("unused")
-        public void draw(Graphics g, int x, int y, int w, int h) {
+        public void draw(Graphics g, Coordinate coordinate) {
 
         }
     }
