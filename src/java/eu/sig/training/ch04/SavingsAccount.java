@@ -1,62 +1,33 @@
 package eu.sig.training.ch04;
 
 // tag::SavingsAccount[]
-public class SavingsAccount {
+public class SavingsAccount extends Accounts {
     private static final float INTEREST_PERCENTAGE = 0.04f;
     private Money balance = new Money();
     private CheckingAccount registeredCounterAccount;
 
     public Transfer makeTransfer(String counterAccount, Money amount) 
         throws BusinessException {
-        // 1. Assuming result is 9-digit bank account number, validate 11-test:
-        int sum = new CheckingAccount().getAmount(counterAccount); // <1>
-//        for (int i = 0; i < counterAccount.length(); i++) {
-//            char character = counterAccount.charAt(i);
-//            int characterValue = Character.getNumericValue(character);
-//            sum = sum + (9 - i) * characterValue;
-//        }
-        if (sum % 11 == 0) {
-            // 2. Look up counter account and make transfer object:
-            CheckingAccount acct = Accounts.findAcctByNumber(counterAccount);
-            Transfer result = new Transfer(this, acct, amount); // <2>
-            // 3. Check whether withdrawal is to registered counter account:
-//            if (result.getCounterAccount().equals(this.registeredCounterAccount)) 
-//            {
-//                return result;
-//            } else {
-//                throw new BusinessException("Counter-account not registered!");
-//            }
-            return validateAccount(result);
-        } else {
-            throw new BusinessException("Invalid account number!!");
+        
+        Transfer transfer;
+        try {
+        	transfer = getMakeTransfer(counterAccount, amount);
+        	if (transfer.getCounterAccount().equals(this.registeredCounterAccount)) {
+                return transfer;
+            } else {
+                throw new BusinessException("Counter-account not registered!");
+            }
+        } catch(BusinessException e) {
+        	throw new BusinessException(e.getMessage());
         }
     }
 
-//    public void addInterest() {
-//        Money interest = balance.multiply(INTEREST_PERCENTAGE);
-//        if (interest.greaterThan(0)) {
-//            balance.add(interest);
-//        } else {
-//            balance.substract(interest);
-//        }
-//    }
-//    
-//    public int getAmount(String counterAccount){
-//    	int sum = 0;
-//    	for (int i = 0; i < counterAccount.length(); i++) {
-//            char character = counterAccount.charAt(i);
-//            int characterValue = Character.getNumericValue(character);
-//            sum = sum + (9 - i) * characterValue;
-//        }
-//    	return sum;
-//    }
-    
-    public Transfer validateAccount(Transfer transfer) throws BusinessException{
-    	if (transfer.getCounterAccount().equals(this.registeredCounterAccount)) 
-        {
-            return transfer;
+    public void addInterest() {
+        Money interest = balance.multiply(INTEREST_PERCENTAGE);
+        if (interest.greaterThan(0)) {
+            balance.add(interest);
         } else {
-            throw new BusinessException("Counter-account not registered!");
+            balance.substract(interest);
         }
     }
 }
