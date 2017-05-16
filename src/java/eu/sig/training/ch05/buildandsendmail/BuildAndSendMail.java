@@ -2,12 +2,12 @@ package eu.sig.training.ch05.buildandsendmail;
 
 public class BuildAndSendMail {
     // tag::buildAndSendMail[]
-    public void buildAndSendMail(MailMan m, Recipient recipient, MailFont font, Message message) {
+    public void buildAndSendMail(MailMan m, Recipient recipient, Message message) {
         // Format the email address
         String mId = recipient.firstName.charAt(0) + "." + recipient.lastName.substring(0, 7) + "@"
             + recipient.division.substring(0, 5) + ".compa.ny";
         // Format the message given the content type and raw message
-        MailMessage mMessage = formatMessage(font,
+        MailMessage mMessage = formatMessage(message.mailFont,
             message.message);
         // Send message
         m.send(mId, message.subject, mMessage);
@@ -66,9 +66,12 @@ public class BuildAndSendMail {
     private class Message{
     	private String message;
     	private String subject;
+    	private MailFont mailFont;
 
-    	public Message(String subject, String message1, String message2, String message3){
+    	public Message(MailFont mailFont,String subject, String message1, String message2, String message3){
     		this.message = message1 + message2 + message3;
+    		this.subject = subject;
+    		this.mailFont = mailFont;
     	}
 		public String getMessage() {
 			return message;
