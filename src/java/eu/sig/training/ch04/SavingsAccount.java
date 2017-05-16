@@ -9,7 +9,7 @@ public class SavingsAccount {
     public Transfer makeTransfer(String counterAccount, Money amount) 
         throws BusinessException {
         // 1. Assuming result is 9-digit bank account number, validate 11-test:
-        int sum = getAmount(counterAccount); // <1>
+        int sum = new CheckingAccount().getAmount(counterAccount); // <1>
 //        for (int i = 0; i < counterAccount.length(); i++) {
 //            char character = counterAccount.charAt(i);
 //            int characterValue = Character.getNumericValue(character);
@@ -32,24 +32,24 @@ public class SavingsAccount {
         }
     }
 
-    public void addInterest() {
-        Money interest = balance.multiply(INTEREST_PERCENTAGE);
-        if (interest.greaterThan(0)) {
-            balance.add(interest);
-        } else {
-            balance.substract(interest);
-        }
-    }
-    
-    public int getAmount(String counterAccount){
-    	int sum = 0;
-    	for (int i = 0; i < counterAccount.length(); i++) {
-            char character = counterAccount.charAt(i);
-            int characterValue = Character.getNumericValue(character);
-            sum = sum + (9 - i) * characterValue;
-        }
-    	return sum;
-    }
+//    public void addInterest() {
+//        Money interest = balance.multiply(INTEREST_PERCENTAGE);
+//        if (interest.greaterThan(0)) {
+//            balance.add(interest);
+//        } else {
+//            balance.substract(interest);
+//        }
+//    }
+//    
+//    public int getAmount(String counterAccount){
+//    	int sum = 0;
+//    	for (int i = 0; i < counterAccount.length(); i++) {
+//            char character = counterAccount.charAt(i);
+//            int characterValue = Character.getNumericValue(character);
+//            sum = sum + (9 - i) * characterValue;
+//        }
+//    	return sum;
+//    }
     
     public Transfer validateAccount(Transfer transfer) throws BusinessException{
     	if (transfer.getCounterAccount().equals(this.registeredCounterAccount)) 
